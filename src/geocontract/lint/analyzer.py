@@ -203,6 +203,9 @@ class SpatialASTAnalyzer(ast.NodeVisitor):
                             return self.crs_state[other]
                     return "PROJECTED"
                 return "PROJECTED"
+            cname = _call_name(node)
+            if cname in ("read_file", "open", "GeoDataFrame", "set_crs", "reproject", "raster_reproject", "gdalwarp", "warp"):
+                return self._infer_assigned_crs(node)
             # Propagate through chaining methods like .geometry, .copy(), .make_valid()
             return self._resolve_expr_crs(node.func.value)
         if isinstance(node, ast.Attribute):
