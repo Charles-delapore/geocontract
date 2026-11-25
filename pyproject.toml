@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "geocontract"
+version = "0.1.0"
+description = "Spatial Contracts & Verifiable Geospatial Agent Middleware (D2)"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "Charles-delapore", email = "274112562+Charles-delapore@users.noreply.github.com"}
+]
+requires-python = ">=3.10"
+dependencies = [
+    "PyYAML>=6.0",
+    "jsonschema>=4.0",
+]
+
+[project.optional-dependencies]
+gis = [
+    "shapely>=2.0",
+    "geopandas>=0.14",
+    "numpy>=1.24",
+    "pyproj>=3.5",
+]
+
+[project.scripts]
+geocontract = "geocontract.cli:main"
+geolint = "geocontract.lint.sarif:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"geocontract.catalog" = ["data/*.json"]
